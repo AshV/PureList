@@ -39,16 +39,53 @@ namespace FunctionalXP
         }
 
         [Pure]
-        public static T[] Drop<T>(this PureList<T> pureList,int n)
+        public static T[] Drop<T>(this PureList<T> pureList, int n)
         {
             if (n >= pureList.initItems.Length)
                 return new T[0];
             var dropList = new T[pureList.initItems.Length - n];
-            return CopyDrop(
+            return Copy(
                 pureList.initItems,
                 dropList,
-                 n);
+                n,
+                pureList.initItems.Length - 1,
+                dropList.Length - 1);
         }
+
+        public static T[] Reverse<T>(this PureList<T> pureList)
+        {
+            return ReverseList<T>(
+                pureList.initItems,
+                new T[pureList.initItems.Length],
+                0,
+                pureList.initItems.Length - 1);
+        }
+
+        [Pure]
+        private static T[] ReverseList<T>(T[] list, T[] reverseList, int start, int end)
+        {
+            if (start >= end)
+                return reverseList;
+            reverseList[start] = list[end];
+            reverseList[end] = list[start];
+            return ReverseList(list, reverseList, start + 1, end - 1);
+        }
+
+        [Pure]
+        private static T[] Copy<T>(T[] source, T[] destination, int sourceStart, int sourceEnd, int destinationEnd)
+        {
+            if (sourceStart > sourceEnd)
+                return destination;
+            destination[destinationEnd] = source[sourceEnd];
+            return Copy(
+                source,
+                destination,
+                sourceStart,
+                sourceEnd - 1,
+                destinationEnd - 1);
+        }
+
+
 
         [Pure]
         private static T[] CopyDrop<T>(T[] s, T[] d, int N)

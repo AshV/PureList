@@ -21,6 +21,9 @@ namespace FunctionalXP
             for (int i = 0; i < N.Length; i++)
                 Write(N[i] + " ");
             WriteLine();
+            N = pList.Reverse();
+            for (int i = 0; i < N.Length; i++)
+                Write(N[i] + " ");
         }
     }
 }
