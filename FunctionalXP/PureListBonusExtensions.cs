@@ -4,12 +4,6 @@ namespace FunctionalXP
 {
     public delegate bool FilterPredicate<in T>(T obj);
 
-    public delegate T MapFunction<in T1, out T>();
-    public delegate T MapFunction<in T1, in T2, out T>();
-    public delegate T MapFunction<in T1, in T2, in T3, out T>();
-    public delegate T MapFunction<in T1, in T2, in T3, in T4, out T>();
-    public delegate T MapFunction<in T1, in T2, in T3, in T4, in T5, out T>();
-
     public static class PureListBonusExtensions
     {
         [Pure]
@@ -27,6 +21,5 @@ namespace FunctionalXP
                 predicate,
                 predicate(list[n]) ? output.Cons(list[n]) : output,
                 n - 1);
-
     }
 }
