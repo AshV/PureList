@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Contracts;
+﻿using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 namespace FunctionalXP
 {
@@ -38,7 +39,7 @@ namespace FunctionalXP
                 consContent,
                 pureList.initItems.Length - 1);
         }
-
+        
         [Pure]
         private static T[] ReverseList<T>(T[] list, T[] reverseList, int start, int end)
         {

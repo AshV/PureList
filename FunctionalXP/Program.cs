@@ -9,7 +9,7 @@ namespace FunctionalXP
         {
             var pList = new PureList<int>(1, 2, 3, 4, 5, 6, 7, 8, 9);
             WriteLine(pList.Head());
-            var N = pList.Tail();
+            dynamic N = pList.Tail();
             for (int i = 0; i < N.Length; i++)
                 Write(N[i] + " ");
             WriteLine();
@@ -22,6 +22,10 @@ namespace FunctionalXP
                 Write(N[i] + " ");
             WriteLine();
             N = pList.Reverse();
+            for (int i = 0; i < N.Length; i++)
+                Write(N[i] + " ");
+            WriteLine();
+            N = pList.Filter(e => e % 2 == 0);
             for (int i = 0; i < N.Length; i++)
                 Write(N[i] + " ");
         }
