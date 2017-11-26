@@ -9,14 +9,14 @@ namespace FunctionalXP
         public static T[] Filter<T>(this PureList<T> pureList, FilterPredicate<T> predicate)
         {
             var a= FilterApply(
-                    pureList.initItems,
+                    pureList,
                     predicate,
                     new PureList<T>(),
-                    pureList.initItems.Length - 1);
+                    pureList.Length - 1);
             return new T[0];
         }
 
-        private static PureList<T> FilterApply<T>(T[] list, FilterPredicate<T> predicate, PureList<T> output, int n)
+        private static PureList<T> FilterApply<T>(PureList<T> list, FilterPredicate<T> predicate, PureList<T> output, int n)
         {
             if (n < 0)
                 return output;

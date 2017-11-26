@@ -4,7 +4,7 @@ namespace FunctionalXP
 {
     public class PureList<T>
     {
-        public readonly T[] initItems;
+        private readonly T[] initItems;
 
         public int Length { get; }
 
