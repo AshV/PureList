@@ -15,29 +15,29 @@ namespace FunctionalXP
             pureList.Length - 2));
 
         [Pure]
-        public static T[] Drop<T>(this PureList<T> pureList, int n) => Copy(
+        public static PureList<T> Drop<T>(this PureList<T> pureList, int n) => new PureList<T>(Copy(
                 pureList,
                 new T[pureList.Length - n],
                 n,
                 pureList.Length - 1,
-                pureList.Length - n - 1);
+                pureList.Length - n - 1));
 
         [Pure]
-        public static T[] Reverse<T>(this PureList<T> pureList) => ReverseList<T>(
+        public static PureList<T> Reverse<T>(this PureList<T> pureList) => new PureList<T>(ReverseList(
                 pureList,
                 new T[pureList.Length],
                 0,
-                pureList.Length - 1);
+                pureList.Length - 1));
 
         [Pure]
-        public static T[] Cons<T>(this PureList<T> pureList, T element)
+        public static PureList<T> Cons<T>(this PureList<T> pureList, T element)
         {
             var consContent = new T[pureList.Length + 1];
             consContent[0] = element;
-            return CopyCons(
+            return new PureList<T>(CopyCons(
                 pureList,
                 consContent,
-                pureList.Length - 1);
+                pureList.Length - 1));
         }
 
         [Pure]

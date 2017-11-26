@@ -6,14 +6,13 @@ namespace FunctionalXP
 
     public static class PureListBonusExtensions
     {
-        public static T[] Filter<T>(this PureList<T> pureList, FilterPredicate<T> predicate)
+        public static PureList<T> Filter<T>(this PureList<T> pureList, FilterPredicate<T> predicate)
         {
-            var a= FilterApply(
-                    pureList,
-                    predicate,
-                    new PureList<T>(),
-                    pureList.Length - 1);
-            return new T[0];
+            return FilterApply(
+                      pureList,
+                      predicate,
+                      new PureList<T>(),
+                      pureList.Length - 1);
         }
 
         private static PureList<T> FilterApply<T>(PureList<T> list, FilterPredicate<T> predicate, PureList<T> output, int n)
