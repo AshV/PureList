@@ -1,31 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.Contracts;
 
 namespace FunctionalXP
 {
     public static class PureListExtensions
     {
         [Pure]
-        public static T Head<T>(this PureList<T> purelist)
-        {
-            if (purelist.initItems.Length > 0)
-                return purelist.initItems[0];
-            else
-                return default(T);
-        }
+        public static T Head<T>(this PureList<T> purelist) => purelist.initItems.Length > 0 ? purelist.initItems[0] : default(T);
 
         [Pure]
-        public static T[] Tail<T>(this PureList<T> pureList)
-        {
-            return CopyTail(
+        public static T[] Tail<T>(this PureList<T> pureList) => CopyTail(
+            pureList.initItems,
+            new T[pureList.initItems.Length - 1],
+            pureList.initItems.Length - 2);
+
+        [Pure]
+        public static T[] Drop<T>(this PureList<T> pureList, int n) => Copy(
                 pureList.initItems,
-                new T[pureList.initItems.Length - 1],
-                pureList.initItems.Length - 2);
-        }
+                new T[pureList.initItems.Length - n],
+                n,
+                pureList.initItems.Length - 1,
+                pureList.initItems.Length - n - 1);
+
+        [Pure]
+        public static T[] Reverse<T>(this PureList<T> pureList) => ReverseList<T>(
+                pureList.initItems,
+                new T[pureList.initItems.Length],
+                0,
+                pureList.initItems.Length - 1);
 
         [Pure]
         public static T[] Cons<T>(this PureList<T> pureList, T element)
@@ -39,32 +40,9 @@ namespace FunctionalXP
         }
 
         [Pure]
-        public static T[] Drop<T>(this PureList<T> pureList, int n)
-        {
-            if (n >= pureList.initItems.Length)
-                return new T[0];
-            var dropList = new T[pureList.initItems.Length - n];
-            return Copy(
-                pureList.initItems,
-                dropList,
-                n,
-                pureList.initItems.Length - 1,
-                dropList.Length - 1);
-        }
-
-        public static T[] Reverse<T>(this PureList<T> pureList)
-        {
-            return ReverseList<T>(
-                pureList.initItems,
-                new T[pureList.initItems.Length],
-                0,
-                pureList.initItems.Length - 1);
-        }
-
-        [Pure]
         private static T[] ReverseList<T>(T[] list, T[] reverseList, int start, int end)
         {
-            if (start >= end)
+            if (start > end)
                 return reverseList;
             reverseList[start] = list[end];
             reverseList[end] = list[start];
@@ -83,16 +61,6 @@ namespace FunctionalXP
                 sourceStart,
                 sourceEnd - 1,
                 destinationEnd - 1);
-        }
-
-
-
-        [Pure]
-        private static T[] CopyDrop<T>(T[] s, T[] d, int N)
-        {
-            if (N < 0) return d;
-            d[N] = s[N];
-            return CopyDrop(s, d, --N);
         }
 
         [Pure]
