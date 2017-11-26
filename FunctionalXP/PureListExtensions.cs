@@ -9,10 +9,10 @@ namespace FunctionalXP
         public static T Head<T>(this PureList<T> purelist) => purelist.initItems.Length > 0 ? purelist.initItems[0] : default(T);
 
         [Pure]
-        public static T[] Tail<T>(this PureList<T> pureList) => CopyTail(
+        public static PureList<T> Tail<T>(this PureList<T> pureList) => new PureList<T>(CopyTail(
             pureList.initItems,
             new T[pureList.initItems.Length - 1],
-            pureList.initItems.Length - 2);
+            pureList.initItems.Length - 2));
 
         [Pure]
         public static T[] Drop<T>(this PureList<T> pureList, int n) => Copy(
@@ -39,7 +39,7 @@ namespace FunctionalXP
                 consContent,
                 pureList.initItems.Length - 1);
         }
-        
+
         [Pure]
         private static T[] ReverseList<T>(T[] list, T[] reverseList, int start, int end)
         {

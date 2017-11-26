@@ -6,10 +6,22 @@ namespace FunctionalXP
     {
         public readonly T[] initItems;
 
+        public int Length { get; }
+
         [Pure]
         public PureList(params T[] items)
         {
             initItems = items;
+            Length = items.Length;
+        }
+
+        public T this[int index]
+        {
+            get
+            {
+                return initItems[index];
+            }
         }
     }
+
 }

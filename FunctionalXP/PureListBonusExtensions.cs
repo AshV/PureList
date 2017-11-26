@@ -8,20 +8,21 @@ namespace FunctionalXP
     {
         public static T[] Filter<T>(this PureList<T> pureList, FilterPredicate<T> predicate)
         {
-            return FilterApply(
+            var a= FilterApply(
                     pureList.initItems,
                     predicate,
-                    new List<T>(),
+                    new PureList<T>(),
                     pureList.initItems.Length - 1);
+            return new T[0];
         }
 
-        private static T[] FilterApply<T>(T[] list, FilterPredicate<T> predicate, List<T> output, int n)
+        private static PureList<T> FilterApply<T>(T[] list, FilterPredicate<T> predicate, PureList<T> output, int n)
         {
             if (n < 0)
-                return output.ToArray();
+                return output;
 
             if (predicate.Invoke(list[n]))
-                output.Add(list[n]);
+                output.Cons(list[n]);
             return FilterApply(list, predicate, output, n - 1);
         }
     }
