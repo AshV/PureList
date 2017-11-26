@@ -39,6 +39,26 @@ namespace FunctionalXP
         }
 
         [Pure]
+        public static T[] Drop<T>(this PureList<T> pureList,int n)
+        {
+            if (n >= pureList.initItems.Length)
+                return new T[0];
+            var dropList = new T[pureList.initItems.Length - n];
+            return CopyDrop(
+                pureList.initItems,
+                dropList,
+                 n);
+        }
+
+        [Pure]
+        private static T[] CopyDrop<T>(T[] s, T[] d, int N)
+        {
+            if (N < 0) return d;
+            d[N] = s[N];
+            return CopyDrop(s, d, --N);
+        }
+
+        [Pure]
         private static T[] CopyCons<T>(T[] s, T[] d, int N)
         {
             if (N < 0) return d;

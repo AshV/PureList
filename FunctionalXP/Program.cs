@@ -13,9 +13,14 @@ namespace FunctionalXP
             for (int i = 0; i < N.Length; i++)
                 Write(N[i] + " ");
             WriteLine();
-             N = pList.Cons(99);
+            N = pList.Cons(99);
             for (int i = 0; i < N.Length; i++)
-                Write(N[i]+ " ");
+                Write(N[i] + " ");
+            WriteLine();
+            N = pList.Drop(2);
+            for (int i = 0; i < N.Length; i++)
+                Write(N[i] + " ");
+            WriteLine();
         }
     }
 }
